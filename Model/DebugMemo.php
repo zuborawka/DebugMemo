@@ -4,6 +4,15 @@ App::uses('CakeEmail', 'Network/Email');
 class DebugMemo extends AppModel {
 
     /**
+     * Default E-mail address for sending the update result.
+     * [priority]
+     * Configure::read('DebugMemo.email_from') > $this->defaultEMailFrom
+     *
+     * @var string
+     */
+    public $defaultEMailFrom = 'debug_memo.notifier@default.com';
+
+    /**
      * update
      */
     public function update($controller, $action, $data) {
@@ -48,7 +57,11 @@ class DebugMemo extends AppModel {
                 $email = new CakeEmail('debug_memo');
                 $from = $email->from();
                 if (empty($from)) {
-                    $email->from('debug_memo.notifier@default.com', 'DebugMemo Notifier');
+                    $mailFrom = Configure::read('DebugMemo.email_from');
+                    if (empty($mailFrom)) {
+                        $mailFrom = $this->defaultEMailFrom;
+                    }
+                    $email->from($mailFrom, 'DebugMemo Notifier');
                 }
                 $prefix = Configure::read('DebugMemo.email_subject_prefix');
                 $subject = $email->subject();
