@@ -25,6 +25,7 @@
       h = $(window).height() - 150;
       $('#debug-memo-textarea').height(h);
     });
-  });
 */
+  });
+
 }).call(this);

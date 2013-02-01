@@ -8,7 +8,9 @@ class MemobarComponent extends Component {
         'jquery' => '/debug_memo/js/jquery',
         'libs' => '/debug_memo/js/js_debug_memobar'
     );
-    public $css = array('DebugMemo.debug_memobar.css');
+    public $css = array(
+        'style' => 'DebugMemo.debug_memobar.css'
+    );
 
     public $settings = array(
         'forceEnable' => false,
@@ -49,7 +51,7 @@ class MemobarComponent extends Component {
     }
 
 /**
- * Gets parameters of asset merged with configured values.
+ * Returns parameters of asset merged with configured values.
  *
  * @param string 'css', 'javascript' OR 'js'
  * @return array

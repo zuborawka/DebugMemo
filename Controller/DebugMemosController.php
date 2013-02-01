@@ -30,13 +30,13 @@ class DebugMemosController extends DebugMemoAppController {
      * update
      *
      */
-    public function update($controller = null, $action = null){
-        $result = $this->DebugMemo->update($controller, $action, $this->request->data);
+    public function update(){
+        $result = $this->DebugMemo->update($this->request->data);
         if ($result === true) {
             $this->Session->setFlash(
                 __d('debug_memo', 'Memo has been updated')
             );
-            $this->redirect(array('action' => 'update/' . $this->request->data['DebugMemo']['controller'] . '/' . $this->request->data['DebugMemo']['action']));
+//            $this->redirect(array('action' => 'update/' . $this->request->data['DebugMemo']['controller'] . '/' . $this->request->data['DebugMemo']['action']));
         } else {
             $this->request->data = $result;
         }

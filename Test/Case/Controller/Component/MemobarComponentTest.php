@@ -22,6 +22,9 @@ class MemobarComponentTest extends CakeTestCase
 
 	public function testGetAsset()
 	{
+		Configure::write('DebugMemo.css', null);
+		Configure::write('DebugMemo.javascript', null);
+
 		$expected = $this->MemobarComponent->css;
 		$result = $this->MemobarComponent->getAsset('css');
 		$this->assertEquals($expected, $result);
@@ -48,9 +51,9 @@ class MemobarComponentTest extends CakeTestCase
 		$result = $this->MemobarComponent->getAsset('javascript');
 		$this->assertEquals($expected, $result);
 
-		Configure::write('DebugMemo.css.0', 'style.css');
+		Configure::write('DebugMemo.css.style', 'style.css');
 		$expected = $this->MemobarComponent->css;
-		$expected[] = 'style.css';
+		$expected['style'] = 'style.css';
 		$result = $this->MemobarComponent->getAsset('css');
 		$this->assertEquals($expected, $result);
 	}
