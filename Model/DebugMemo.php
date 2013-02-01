@@ -64,7 +64,6 @@ class DebugMemo extends AppModel {
                     }
                     $email->from($mailFrom, 'DebugMemo Notifier');
                 }
-                $to = $email->to();
 
                 $prefix = Configure::read('DebugMemo.email_subject_prefix');
                 $subject = $email->subject();
