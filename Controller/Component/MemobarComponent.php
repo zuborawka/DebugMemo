@@ -1,5 +1,7 @@
 <?php
 
+App::uses('Hash', 'Utility');
+
 class MemobarComponent extends Component {
 
     public $javascript = array(
@@ -41,9 +43,48 @@ class MemobarComponent extends Component {
      */
     public function beforeRender(Controller $controller){
         $controller->set(array(
-                'debugMemobarJavascript' => $this->javascript,
-                'debugMemobarCss' => $this->css
+                'debugMemobarJavascript' => $this->getAsset('js'),
+                'debugMemobarCss' => $this->getAsset('css')
             ));
     }
+
+/**
+ * Gets parameters of asset merged with configured values.
+ *
+ * @param string 'css', 'javascript' OR 'js'
+ * @return array
+ * @throws InvalidArgumentException
+ */
+	public function getAsset($type)
+	{
+		if ($type === 'js') {
+			$type = 'javascript';
+		}
+
+		if ($type !== 'css' && $type !== 'javascript') {
+			throw new InvalidArgumentException('"' . $type . '" is not allowed.');
+		}
+
+		if ($asset = Configure::read('DebugMemo.' . $type)) {
+			if (is_array($asset)) {
+				$asset = array_merge(
+					$this->$type,
+					$asset
+				);
+			} elseif (is_string($asset)) {
+				$asset = array_push($this->$type, $asset);
+			} else {
+				$asset = $this->$type;
+			}
+		} else {
+			$asset = $this->$type;
+		}
+
+		if (is_array($asset)) {
+			$asset = Hash::filter($asset);
+		}
+
+		return $asset;
+	}
 
 }
