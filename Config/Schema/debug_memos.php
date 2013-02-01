@@ -18,7 +18,7 @@ class debug_memosSchema extends CakeSchema {
                             'modified' => array('type' => 'datetime', 'null' => true, 'default' => NULL),
                             'indexes' => array(
                             	'PRIMARY' => array('column' => 'id', 'unique' => 1),
-								'urlargs' => array('column' => array('plugin', 'controller', 'action'), 'unique' => 1)
+                            	'urlargs' => array('column' => array('plugin', 'controller', 'action'), 'unique' => 1)
                             ),
                             'tableParameters' => array('charset' => 'utf8', 'collate' => 'utf8_general_ci', 'engine' => 'InnoDB')
                             );
